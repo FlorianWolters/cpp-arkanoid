@@ -11,6 +11,7 @@
 #include <string>
 #include "SFML/Graphics.hpp"
 #include "fw/arkanoid/ball.h"
+#include "fw/arkanoid/dimension.h"
 
 namespace fw {
 namespace arkanoid {
@@ -36,13 +37,17 @@ class Game {
     this->window_.close();
   }
 
+  Dimension window_size() const noexcept {
+    return this->window_size_;
+  }
+
   /**
    * Runs the *Game Loop* of this Game.
    */
   void run() {
     this->is_running_ = true;
 
-    Ball ball{{kWindowWidth / 2, kWindowHeight / 2}};
+    Ball ball{this->window_size_, {kWindowWidth / 2, kWindowHeight / 2}};
 
     while(this->is_running_) {
       this->window_.clear(sf::Color::Black);
@@ -92,6 +97,8 @@ class Game {
 
   /** Whether this Game is running. */
   bool is_running_{false};
+
+  Dimension window_size_{kWindowWidth, kWindowHeight};
 
   /** The window of this Game. */
   sf::RenderWindow window_{{kWindowWidth, kWindowHeight}, kApplicationName};
