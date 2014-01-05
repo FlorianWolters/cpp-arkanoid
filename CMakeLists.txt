@@ -13,7 +13,7 @@ set (BUILD_VERBOSE TRUE)
 set (BUILD_DIR "build")
 set (HEADER_DIR "include")
 set (SOURCE_DIR "src")
-set (MAIN_FILE "${SOURCE_DIR}/main.cc")
+set (EXECUTABLE_PATH "${BUILD_DIR}/${PROJECT_NAME}")
 
 project (${PROJECT_NAME} ${PROJECT_TYPE})
 
@@ -30,11 +30,14 @@ else()
 endif()
 
 set (CMAKE_VERBOSE_MAKEFILE ${BUILD_VERBOSE})
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=${CXX_STANDARD}")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=${CXX_STANDARD} -Wall -Wextra -Werror -pedantic")
 
+file (GLOB SOURCE_FILES
+  "${HEADER_DIR}/*.h"
+  "${SOURCE_DIR}/*.cc"
+)
 include_directories (${HEADER_DIR})
-set (EXECUTABLE_PATH "${BUILD_DIR}/${PROJECT_NAME}")
-add_executable (${EXECUTABLE_PATH} ${MAIN_FILE})
+add_executable (${EXECUTABLE_PATH} ${SOURCE_FILES})
 
 # Find SFML
 set (SFML_ROOT "../SFML-2.1")
