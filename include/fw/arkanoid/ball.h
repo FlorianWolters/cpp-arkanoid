@@ -15,7 +15,7 @@ namespace arkanoid {
 
 class Ball {
  public:
-  Ball(float x, float y) : Ball{x, y, kDefaultBallRadius_} {
+  Ball(float x, float y) : Ball{x, y, kDefaultRadius_} {
   }
 
   Ball(float x, float y, float ballRadius) {
@@ -34,12 +34,12 @@ class Ball {
   }
 
  private:
-  static constexpr float kDefaultBallRadius_{10.f};
-  static constexpr float kDefaultBallVelocity{8.f};
+  static constexpr float kDefaultRadius_{10.f};
+  static constexpr float kDefaultVelocity_{8.f};
   sf::CircleShape shape_;
 
   /** The velocity of this Ball. */
-  sf::Vector2f velocity_{-kDefaultBallVelocity, -kDefaultBallVelocity};
+  sf::Vector2f velocity_{-kDefaultVelocity_, -kDefaultVelocity_};
 };
 
 } // namespace arkanoid
