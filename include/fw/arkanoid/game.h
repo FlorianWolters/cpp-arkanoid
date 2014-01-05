@@ -11,6 +11,7 @@
 #include <string>
 #include "SFML/Graphics.hpp"
 #include "fw/arkanoid/ball.h"
+#include "fw/arkanoid/paddle.h"
 #include "fw/arkanoid/dimension.h"
 
 namespace fw {
@@ -48,14 +49,17 @@ class Game {
     this->is_running_ = true;
 
     Ball ball{this->window_size_, {kWindowWidth / 2, kWindowHeight / 2}};
+    Paddle paddle{this->window_size_, {kWindowWidth / 2, kWindowHeight - 50}};
 
     while(this->is_running_) {
       this->window_.clear(sf::Color::Black);
       this->handleInput();
 
       ball.update();
+      paddle.update();
 
       this->window_.draw(ball.shape());
+      this->window_.draw(paddle.shape());
       this->window_.display();
     }
   }

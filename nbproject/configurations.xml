@@ -7,6 +7,7 @@
           <in>ball.h</in>
           <in>dimension.h</in>
           <in>insets.h</in>
+          <in>paddle.h</in>
           <in>point.h</in>
         </df>
       </df>
@@ -57,6 +58,8 @@
       <item path="include/fw/arkanoid/dimension.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/fw/arkanoid/insets.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/fw/arkanoid/paddle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/fw/arkanoid/point.h" ex="false" tool="3" flavor2="0">
       </item>
