@@ -5,6 +5,9 @@
       <df name="fw">
         <df name="arkanoid">
           <in>ball.h</in>
+          <in>dimension.h</in>
+          <in>insets.h</in>
+          <in>point.h</in>
         </df>
       </df>
     </df>
@@ -50,6 +53,12 @@
         </makeTool>
       </makefileType>
       <item path="include/fw/arkanoid/ball.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/fw/arkanoid/dimension.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/fw/arkanoid/insets.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/fw/arkanoid/point.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cc" ex="false" tool="1" flavor2="8">
         <ccTool>
