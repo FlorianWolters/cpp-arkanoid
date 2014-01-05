@@ -10,6 +10,7 @@
 
 #include <string>
 #include "SFML/Graphics.hpp"
+#include "fw/arkanoid/ball.h"
 
 namespace fw {
 namespace arkanoid {
@@ -41,9 +42,12 @@ class Game {
   void run() {
     this->is_running_ = true;
 
+    Ball ball{kWindowWidth / 2, kWindowHeight / 2};
+
     while(this->is_running_) {
       this->window_.clear(sf::Color::Black);
       this->handleInput();
+      this->window_.draw(ball.shape());
       this->window_.display();
     }
   }
