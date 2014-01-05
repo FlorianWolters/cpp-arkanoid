@@ -9,6 +9,18 @@ cmake_install.cmake
 install_manifest.txt
 
 #################
+## NetBeans IDE
+#################
+
+nbproject/private
+build
+nbbuild
+dist
+nbdist
+nbactions.xml
+nb-configuration.xml
+
+#################
 ## Eclipse
 #################
 
