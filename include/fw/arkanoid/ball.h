@@ -29,9 +29,17 @@ class Ball {
     return this->shape_;
   }
 
+  void update() {
+    this->shape_.move(this->velocity_);
+  }
+
  private:
   static constexpr float kDefaultBallRadius_{10.f};
+  static constexpr float kDefaultBallVelocity{8.f};
   sf::CircleShape shape_;
+
+  /** The velocity of this Ball. */
+  sf::Vector2f velocity_{-kDefaultBallVelocity, -kDefaultBallVelocity};
 };
 
 } // namespace arkanoid

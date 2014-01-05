@@ -47,6 +47,9 @@ class Game {
     while(this->is_running_) {
       this->window_.clear(sf::Color::Black);
       this->handleInput();
+
+      ball.update();
+
       this->window_.draw(ball.shape());
       this->window_.display();
     }
