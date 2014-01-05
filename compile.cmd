@@ -11,5 +11,25 @@ RD /S /Q %PATH_BUILD%
 MD %PATH_BUILD%
 
 cmake -Wno-dev --warn-uninitialized --warn-unused-vars --check-system-vars -G"MSYS Makefiles"
+IF ERRORLEVEL 1 (
+    ECHO.
+    ECHO An error occured running CMake!
+    ECHO.
+    GOTO OnErrorHandler
+)
+
 make
-START "" "%PATH_BUILD%\%PROJECT_NAME%.exe" & EXIT
+IF ERRORLEVEL 1 (
+    ECHO.
+    ECHO An error occured running Make!
+    ECHO.
+    GOTO OnErrorHandler
+)
+
+START "" "%PATH_BUILD%\%PROJECT_NAME%.exe"
+GOTO OnExitHandler
+
+:OnErrorHandler
+PAUSE
+
+:OnExitHandler
