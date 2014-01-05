@@ -55,7 +55,7 @@ class Ball {
     const float kTop = this->point().y() - this->shape_.getRadius();
     const float kBottom = this->point().y() + this->shape_.getRadius();
 
-    return {kBottom, kLeft, kRight, kTop};
+    return {kTop, kLeft, kBottom, kRight};
   }
 
   void update() {
