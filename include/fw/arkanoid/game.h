@@ -42,7 +42,7 @@ class Game {
   void run() {
     this->is_running_ = true;
 
-    Ball ball{kWindowWidth / 2, kWindowHeight / 2};
+    Ball ball{{kWindowWidth / 2, kWindowHeight / 2}};
 
     while(this->is_running_) {
       this->window_.clear(sf::Color::Black);

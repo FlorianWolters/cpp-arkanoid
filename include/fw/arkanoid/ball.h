@@ -9,17 +9,18 @@
 #define FW_ARKANOID_BALL_H_
 
 #include "SFML/Graphics.hpp"
+#include "fw/arkanoid/point.h"
 
 namespace fw {
 namespace arkanoid {
 
 class Ball {
  public:
-  Ball(float x, float y) : Ball{x, y, kDefaultRadius_} {
+  Ball(Point point) : Ball{point, kDefaultRadius_} {
   }
 
-  Ball(float x, float y, float ballRadius) {
-    this->shape_.setPosition(x, y);
+  Ball(Point point, float ballRadius) {
+    this->shape_.setPosition(point.x, point.y);
     this->shape_.setRadius(ballRadius);
     this->shape_.setFillColor(sf::Color::Red);
     this->shape_.setOrigin(ballRadius, ballRadius);
