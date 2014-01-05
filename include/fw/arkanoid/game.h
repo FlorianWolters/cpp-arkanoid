@@ -93,4 +93,4 @@ class Game {
 } // namespace arkanoid
 } // namespace fw
 
-#endif  // FW_ARKANOID_H_
+#endif  // FW_ARKANOID_GAME_H_

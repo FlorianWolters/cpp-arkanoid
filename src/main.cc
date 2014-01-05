@@ -5,7 +5,7 @@
  * @author Florian Wolters <wolters.fl@gmail.com>
  */
 
-#include "fw/arkanoid/Game.h"
+#include "fw/arkanoid/game.h"
 
 /**
  * Runs the game *Arkanoid*.
