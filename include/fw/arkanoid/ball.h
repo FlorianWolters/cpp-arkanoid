@@ -25,7 +25,7 @@ class Ball {
 
   Ball(Dimension borders, Point position, float ballRadius)
       : borders_(borders) {
-    this->shape_.setPosition(position.x, position.y);
+    this->shape_.setPosition(position.x(), position.y());
     this->shape_.setRadius(ballRadius);
     this->shape_.setFillColor(sf::Color::Red);
     this->shape_.setOrigin(ballRadius, ballRadius);
@@ -50,24 +50,24 @@ class Ball {
    * @return The Insets.
    */
   Insets insets() const noexcept {
-    const float kLeft = this->point().x - this->shape_.getRadius();
-    const float kRight = this->point().x + this->shape_.getRadius();
-    const float kTop = this->point().y - this->shape_.getRadius();
-    const float kBottom = this->point().y + this->shape_.getRadius();
+    const float kLeft = this->point().x() - this->shape_.getRadius();
+    const float kRight = this->point().x() + this->shape_.getRadius();
+    const float kTop = this->point().y() - this->shape_.getRadius();
+    const float kBottom = this->point().y() + this->shape_.getRadius();
 
     return {kBottom, kLeft, kRight, kTop};
   }
 
   void update() {
-    if (this->insets().left < 0) {
+    if (this->insets().left() < 0) {
       this->velocity_.x = kDefaultVelocity_;
-    } else if (this->insets().right > this->borders_.width) {
+    } else if (this->insets().right() > this->borders_.width()) {
       this->velocity_.x = -kDefaultVelocity_;
     }
 
-    if (this->insets().top < 0) {
+    if (this->insets().top() < 0) {
       this->velocity_.y = kDefaultVelocity_;
-    } else if(this->insets().bottom > this->borders_.height) {
+    } else if(this->insets().bottom() > this->borders_.height()) {
       this->velocity_.y = -kDefaultVelocity_;
     }
 

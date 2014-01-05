@@ -19,18 +19,68 @@ namespace arkanoid {
  *
  * @author Florian Wolters <wolters.fl@gmail.com>
  */
-struct Insets {
-  /** The inset from the bottom. */
-  float bottom;
+class Insets {
+ public:
+  /**
+   * Initializes a new instance of the Insets class.
+   *
+   * @param top    The inset from the top.
+   * @param left   The inset from the left.
+   * @param bottom The inset from the bottom.
+   * @param right  The inset from the right.
+   */
+  Insets(float top, float left, float bottom, float right)
+      : top_{top}, left_{left}, bottom_{bottom}, right_{right} {
+  }
+
+  /**
+   * Returns the inset from the top.
+   *
+   * @return The inset from the top.
+   */
+  float top() const noexcept {
+    return this->top_;
+  }
+
+  /**
+   * Returns the inset from the left.
+   *
+   * @return The inset from the left.
+   */
+  float left() const noexcept {
+    return this->left_;
+  }
+
+  /**
+   * Returns the inset from the bottom.
+   *
+   * @return The inset from the bottom.
+   */
+  float bottom() const noexcept {
+    return this->bottom_;
+  }
+
+  /**
+   * Returns the inset from the right.
+   *
+   * @return The inset from the right.
+   */
+  float right() const noexcept {
+    return this->right_;
+  }
+
+ private:
+  /** The inset from the top. */
+  float top_;
 
   /** The inset from the left. */
-  float left;
+  float left_;
+
+  /** The inset from the bottom. */
+  float bottom_;
 
   /** The inset from the right. */
-  float right;
-
-  /** The inset from the top. */
-  float top;
+  float right_;
 };
 
 } // namespace arkanoid

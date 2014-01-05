@@ -17,12 +17,41 @@ namespace arkanoid {
  *
  * @author Florian Wolters <wolters.fl@gmail.com>
  */
-struct Dimension {
+class Dimension {
+ public:
+  /**
+   * Initializes a new instance of the Dimension class.
+   *
+   * @param width  The width.
+   * @param height The height.
+   */
+  Dimension(float width, float height) : width_{width}, height_{height} {
+  }
+
+  /**
+   * Returns the width of this Dimension.
+   *
+   * @return The width.
+   */
+  float width() const noexcept {
+    return this->width_;
+  }
+
+  /**
+   * Returns the height of this Dimension.
+   *
+   * @return The height.
+   */
+  float height() const noexcept {
+    return this->height_;
+  }
+
+ private:
   /** The width dimension; negative values can be used. */
-  float width;
+  float width_;
 
   /** The height dimension; negative values can be used. */
-  float height;
+  float height_;
 };
 
 } // namespace arkanoid
