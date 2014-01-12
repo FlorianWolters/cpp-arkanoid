@@ -8,6 +8,7 @@ set (PROJECT_NAME "arkanoid")
 set (PROJECT_TYPE "CXX")
 set (GNUCXX_MINIMUM_VERSION "4.8")
 set (CXX_STANDARD "c++11")
+set (GNUCXX_FLAGS "-Werror -Wfatal-errors -pedantic-errors -Wall -Wextra -Wdouble-promotion -Wmissing-include-dirs -Wswitch-default -Weffc++")
 set (BUILD_STATIC TRUE)
 set (BUILD_VERBOSE TRUE)
 set (BUILD_DIR "build")
@@ -30,7 +31,7 @@ else()
 endif()
 
 set (CMAKE_VERBOSE_MAKEFILE ${BUILD_VERBOSE})
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=${CXX_STANDARD} -Wall -Wextra -Werror -pedantic")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=${CXX_STANDARD} ${GNUCXX_FLAGS}")
 
 file (GLOB SOURCE_FILES
   "${HEADER_DIR}/*.h"
@@ -39,13 +40,13 @@ file (GLOB SOURCE_FILES
 include_directories (${HEADER_DIR})
 add_executable (${EXECUTABLE_PATH} ${SOURCE_FILES})
 
-# Find SFML
+# Find "Simple and Fast Multimedia Library (SFML)".
 set (SFML_ROOT "../SFML-2.1")
 set (CMAKE_MODULE_PATH "${SFML_ROOT}/cmake/Modules" ${CMAKE_MODULE_PATH})
 set (SFML_STATIC_LIBRARIES ${BUILD_STATIC})
 find_package (SFML 2 COMPONENTS audio graphics window system)
 
 if (SFML_FOUND)
-  include_directories (${SFML_INCLUDE_DIR})
+  include_directories (SYSTEM ${SFML_INCLUDE_DIR})
   target_link_libraries (${EXECUTABLE_PATH} ${SFML_LIBRARIES})
 endif()

@@ -24,7 +24,7 @@ class Ball {
   }
 
   Ball(Dimension borders, Point position, float ballRadius)
-      : borders_(borders) {
+      : borders_(borders), shape_(sf::CircleShape()) {
     this->shape_.setPosition(position.x(), position.y());
     this->shape_.setRadius(ballRadius);
     this->shape_.setFillColor(sf::Color::Red);

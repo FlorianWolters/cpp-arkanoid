@@ -24,7 +24,9 @@ class Paddle {
   }
 
   Paddle(Dimension borders, Point position, Dimension size)
-      : borders_(borders) {
+    : borders_(borders),
+      shape_(sf::RectangleShape()),
+      velocity_(sf::Vector2f()) {
     this->shape_.setPosition(position.x(), position.y());
     this->shape_.setSize({size.width(), size.height()});
     this->shape_.setFillColor(sf::Color::Red);
