@@ -9,7 +9,9 @@
 #define FW_ARKANOID_GAME_H_
 
 #include <string>
+#include <vector>
 #include "SFML/Graphics.hpp"
+#include "fw/arkanoid/brick.h"
 #include "fw/arkanoid/ball.h"
 #include "fw/arkanoid/paddle.h"
 #include "fw/arkanoid/dimension.h"
@@ -51,6 +53,22 @@ class Game {
     Ball ball{this->window_size_, {kWindowWidth / 2, kWindowHeight / 2}};
     Paddle paddle{this->window_size_, {kWindowWidth / 2, kWindowHeight - 50}};
 
+    std::vector<Brick> bricks;
+    constexpr int countBlocksX{11};
+    constexpr int countBlocksY{4};
+
+    for (std::size_t i{0}; i < countBlocksX; ++i) {
+      for (std::size_t j{0}; j < countBlocksY; ++j) {
+        bricks.emplace_back(
+            Brick{
+                Point{
+                    (i + 1) * (Brick::kDefaultWidth + 3) + 22,
+                    (j + 2) * (Brick::kDefaultHeight + 3)
+                }
+            });
+      }
+    }
+
     while (this->is_running_) {
       this->window_.clear(sf::Color::Black);
       this->handleInput();
@@ -64,6 +82,11 @@ class Game {
 
       this->window_.draw(ball.shape());
       this->window_.draw(paddle.shape());
+
+      for (auto const &brick : bricks) {
+        this->window_.draw(brick.shape());
+      }
+
       this->window_.display();
     }
   }
@@ -91,7 +114,7 @@ class Game {
   }
 
   // TODO Refactor the following methods.
-  
+
   bool AreColliding(Paddle const &kPaddle, Ball const &kBall) const noexcept {
     return kPaddle.insets().IntersectsWith(kBall.insets());
   }
