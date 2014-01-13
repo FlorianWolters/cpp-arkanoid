@@ -24,13 +24,13 @@ class Insets {
   /**
    * Initializes a new instance of the Insets class.
    *
-   * @param top    The inset from the top.
-   * @param left   The inset from the left.
-   * @param bottom The inset from the bottom.
-   * @param right  The inset from the right.
+   * @param kTop    The inset from the top.
+   * @param kLeft   The inset from the left.
+   * @param kBottom The inset from the bottom.
+   * @param kRight  The inset from the right.
    */
-  Insets(float top, float left, float bottom, float right)
-      : top_{top}, left_{left}, bottom_{bottom}, right_{right} {
+  Insets(float const kTop, float const kLeft, float const kBottom, float const kRight)
+      : kTop_{kTop}, kLeft_{kLeft}, kBottom_{kBottom}, kRight_{kRight} {
   }
 
   /**
@@ -39,7 +39,7 @@ class Insets {
    * @return The inset from the top.
    */
   float top() const noexcept {
-    return this->top_;
+    return this->kTop_;
   }
 
   /**
@@ -48,7 +48,7 @@ class Insets {
    * @return The inset from the left.
    */
   float left() const noexcept {
-    return this->left_;
+    return this->kLeft_;
   }
 
   /**
@@ -57,7 +57,7 @@ class Insets {
    * @return The inset from the bottom.
    */
   float bottom() const noexcept {
-    return this->bottom_;
+    return this->kBottom_;
   }
 
   /**
@@ -66,21 +66,26 @@ class Insets {
    * @return The inset from the right.
    */
   float right() const noexcept {
-    return this->right_;
+    return this->kRight_;
+  }
+
+  bool IntersectsWith(Insets const &kOther) const noexcept {
+    return this->kRight_ >= kOther.kLeft_ && this->kLeft_ <= kOther.kRight_
+      && this->kBottom_ >= kOther.kTop_ && this->kTop_ <= kOther.kBottom_;
   }
 
  private:
   /** The inset from the top. */
-  float top_;
+  float const kTop_;
 
   /** The inset from the left. */
-  float left_;
+  float const kLeft_;
 
   /** The inset from the bottom. */
-  float bottom_;
+  float const kBottom_;
 
   /** The inset from the right. */
-  float right_;
+  float const kRight_;
 };
 
 } // namespace arkanoid

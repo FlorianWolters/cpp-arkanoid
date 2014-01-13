@@ -22,10 +22,12 @@ class Dimension {
   /**
    * Initializes a new instance of the Dimension class.
    *
-   * @param width  The width.
-   * @param height The height.
+   * @param kWidth  The width.
+   * @param kHeight The height.
    */
-  Dimension(float width, float height) : width_{width}, height_{height} {
+  Dimension(float const kWidth, float const kHeight)
+    : kWidth_{kWidth},
+      kHeight_{kHeight} {
   }
 
   /**
@@ -34,7 +36,7 @@ class Dimension {
    * @return The width.
    */
   float width() const noexcept {
-    return this->width_;
+    return this->kWidth_;
   }
 
   /**
@@ -43,15 +45,15 @@ class Dimension {
    * @return The height.
    */
   float height() const noexcept {
-    return this->height_;
+    return this->kHeight_;
   }
 
  private:
   /** The width dimension; negative values can be used. */
-  float width_;
+  float const kWidth_;
 
   /** The height dimension; negative values can be used. */
-  float height_;
+  float const kHeight_;
 };
 
 } // namespace arkanoid

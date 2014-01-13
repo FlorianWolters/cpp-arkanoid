@@ -19,20 +19,31 @@ namespace arkanoid {
 
 class Ball {
  public:
-  Ball(Dimension borders, Point position)
-      : Ball{borders, position, kDefaultRadius_} {
+  static constexpr float kDefaultVelocity_{8.f};
+
+  Ball(Dimension const kBorders, Point const kPosition)
+      : Ball{kBorders, kPosition, kDefaultRadius_} {
   }
 
-  Ball(Dimension borders, Point position, float ballRadius)
-      : borders_(borders), shape_(sf::CircleShape()) {
-    this->shape_.setPosition(position.x(), position.y());
-    this->shape_.setRadius(ballRadius);
+  Ball(Dimension const kBorders, Point const kPosition, float const kBallRadius)
+      : kBorders_(kBorders), shape_(sf::CircleShape()) {
+    this->shape_.setPosition(kPosition.x(), kPosition.y());
+    this->shape_.setRadius(kBallRadius);
     this->shape_.setFillColor(sf::Color::Red);
-    this->shape_.setOrigin(ballRadius, ballRadius);
+    this->shape_.setOrigin(kBallRadius, kBallRadius);
   }
 
-  sf::CircleShape shape() const {
+  sf::CircleShape shape() const noexcept {
     return this->shape_;
+  }
+
+  sf::Vector2f velocity() const noexcept {
+    return this->velocity_;
+  }
+
+  void UpdateVelocity(float const kX, float const kY) {
+    this->velocity_.x = kX;
+    this->velocity_.y = kY;
   }
 
   /**
@@ -50,10 +61,10 @@ class Ball {
    * @return The Insets.
    */
   Insets insets() const noexcept {
-    const float kLeft = this->point().x() - this->shape_.getRadius();
-    const float kRight = this->point().x() + this->shape_.getRadius();
-    const float kTop = this->point().y() - this->shape_.getRadius();
-    const float kBottom = this->point().y() + this->shape_.getRadius();
+    float const kTop = this->point().y() - this->shape_.getRadius();
+    float const kLeft = this->point().x() - this->shape_.getRadius();
+    float const kBottom = this->point().y() + this->shape_.getRadius();
+    float const kRight = this->point().x() + this->shape_.getRadius();
 
     return {kTop, kLeft, kBottom, kRight};
   }
@@ -61,13 +72,13 @@ class Ball {
   void update() {
     if (this->insets().left() < 0) {
       this->velocity_.x = kDefaultVelocity_;
-    } else if (this->insets().right() > this->borders_.width()) {
+    } else if (this->insets().right() > this->kBorders_.width()) {
       this->velocity_.x = -kDefaultVelocity_;
     }
 
     if (this->insets().top() < 0) {
       this->velocity_.y = kDefaultVelocity_;
-    } else if(this->insets().bottom() > this->borders_.height()) {
+    } else if(this->insets().bottom() > this->kBorders_.height()) {
       this->velocity_.y = -kDefaultVelocity_;
     }
 
@@ -76,9 +87,8 @@ class Ball {
 
  private:
   static constexpr float kDefaultRadius_{10.f};
-  static constexpr float kDefaultVelocity_{8.f};
 
-  Dimension borders_;
+  Dimension const kBorders_;
   sf::CircleShape shape_;
 
   /** The velocity of this Ball. */

@@ -19,20 +19,20 @@ namespace arkanoid {
 
 class Paddle {
  public:
-  Paddle(Dimension borders, Point position)
-      : Paddle{borders, position, Dimension{kDefaultWidth, kDefaultHeight}} {
+  Paddle(Dimension const kBorders, Point const kPosition)
+      : Paddle{kBorders, kPosition, Dimension{kDefaultWidth, kDefaultHeight}} {
   }
 
-  Paddle(Dimension borders, Point position, Dimension size)
-    : borders_(borders),
+  Paddle(Dimension const kBorders, Point const kPosition, Dimension const kSize)
+    : kBorders_(kBorders),
       shape_(sf::RectangleShape()),
       velocity_(sf::Vector2f()) {
-    this->shape_.setPosition(position.x(), position.y());
-    this->shape_.setSize({size.width(), size.height()});
+    this->shape_.setPosition(kPosition.x(), kPosition.y());
+    this->shape_.setSize({kSize.width(), kSize.height()});
     this->shape_.setFillColor(sf::Color::Red);
     this->shape_.setOrigin(
-        size.width() / 2.f,
-        size.height() / 2.f);
+        kSize.width() / 2.f,
+        kSize.height() / 2.f);
   }
 
   sf::RectangleShape shape() const noexcept {
@@ -54,12 +54,12 @@ class Paddle {
    * @return The Insets.
    */
   Insets insets() const noexcept {
-    const float kLeft = this->point().x() - this->shape_.getSize().x / 2.f;
-    const float kRight = this->point().x() + this->shape_.getSize().x / 2.f;
-    const float kTop = this->point().y() - this->shape_.getSize().y / 2.f;
-    const float kBottom = this->point().y() + this->shape_.getSize().y / 2.f;
+    float const kTop = this->point().y() - this->shape_.getSize().y / 2.f;
+    float const kLeft = this->point().x() - this->shape_.getSize().x / 2.f;
+    float const kBottom = this->point().y() + this->shape_.getSize().y / 2.f;
+    float const kRight = this->point().x() + this->shape_.getSize().x / 2.f;
 
-    return {kBottom, kLeft, kRight, kTop};
+    return {kTop, kLeft, kBottom, kRight};
   }
 
   void update() {
@@ -67,7 +67,7 @@ class Paddle {
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && this->insets().left() > 0) {
       this->velocity_.x = -kDefaultVelocity;
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && this->insets().right() < this->borders_.width()) {
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && this->insets().right() < this->kBorders_.width()) {
       this->velocity_.x = kDefaultVelocity;
     } else {
       this->velocity_.x = 0;
@@ -79,7 +79,7 @@ class Paddle {
   static constexpr float kDefaultHeight{20.f};
   static constexpr float kDefaultVelocity{6.f};
 
-  Dimension borders_;
+  Dimension const kBorders_;
   sf::RectangleShape shape_;
 
   /** The velocity of this Paddle. */

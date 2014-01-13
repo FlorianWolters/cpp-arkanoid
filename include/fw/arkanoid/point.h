@@ -22,10 +22,10 @@ class Point {
   /**
    * Initializes a new instance of the Point class.
    *
-   * @param x The X coordinate.
-   * @param y The Y coordinate.
+   * @param kX The X coordinate.
+   * @param kY The Y coordinate.
    */
-  Point(float x, float y) : x_{x}, y_{y} {
+  Point(float const kX, float const kY) : kX_{kX}, kY_{kY} {
   }
 
   /**
@@ -34,7 +34,7 @@ class Point {
    * @return The X coordinate.
    */
   float x() const noexcept {
-    return this->x_;
+    return this->kX_;
   }
 
   /**
@@ -43,15 +43,15 @@ class Point {
    * @return The Y coordinate.
    */
   float y() const noexcept {
-    return this->y_;
+    return this->kY_;
   }
 
  private:
   /** The X coordinate of this Point. */
-  float x_;
+  float const kX_;
 
   /** The Y coordinate of this Point. */
-  float y_;
+  float const kY_;
 };
 
 } // namespace arkanoid
