@@ -51,7 +51,7 @@ class Game {
     Ball ball{this->window_size_, {kWindowWidth / 2, kWindowHeight / 2}};
     Paddle paddle{this->window_size_, {kWindowWidth / 2, kWindowHeight - 50}};
 
-    while(this->is_running_) {
+    while (this->is_running_) {
       this->window_.clear(sf::Color::Black);
       this->handleInput();
 
