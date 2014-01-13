@@ -58,6 +58,10 @@ class Game {
       ball.update();
       paddle.update();
 
+      if (true == this->AreColliding(paddle, ball)) {
+        this->UpdateBallVelocity(paddle, ball);
+      }
+
       this->window_.draw(ball.shape());
       this->window_.draw(paddle.shape());
       this->window_.display();
@@ -84,6 +88,24 @@ class Game {
           break;
       }
     }
+  }
+
+  // TODO Refactor the following methods.
+  
+  bool AreColliding(Paddle const &kPaddle, Ball const &kBall) const noexcept {
+    return kPaddle.insets().IntersectsWith(kBall.insets());
+  }
+
+  void UpdateBallVelocity(Paddle const &kPaddle, Ball &ball) const {
+    ball.UpdateVelocity(
+      this->CalculateBallVelocityForX(kPaddle, ball),
+      -Ball::kDefaultVelocity_);
+  }
+
+  float CalculateBallVelocityForX(Paddle const &kPaddle, Ball const &kBall) const noexcept {
+    return (kBall.point().x() < kPaddle.point().x())
+      ? -Ball::kDefaultVelocity_
+      : Ball::kDefaultVelocity_;
   }
 
  private:
