@@ -12,7 +12,6 @@
 #include "fw/arkanoid/dimension.h"
 #include "fw/arkanoid/insets.h"
 #include "fw/arkanoid/point.h"
-#include "dimension.h"
 
 namespace fw {
 namespace arkanoid {
