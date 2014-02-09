@@ -10,7 +10,9 @@
 
 #include <string>
 #include <vector>
+
 #include "SFML/Graphics.hpp"
+
 #include "fw/arkanoid/brick.h"
 #include "fw/arkanoid/ball.h"
 #include "fw/arkanoid/paddle.h"
@@ -79,11 +81,24 @@ class Game {
       if (true == this->AreColliding(paddle, ball)) {
         this->UpdateBallVelocity(paddle, ball);
       }
+      
+      for (auto &brick : bricks) {
+        this->testCollision(brick, ball);
+      }
+
+      bricks.erase(
+          std::remove_if(
+              std::begin(bricks),
+              std::end(bricks),
+              [](Brick const &kBrick) {
+                return kBrick.IsDestroyed();
+              }),
+              std::end(bricks));
 
       this->window_.draw(ball.shape());
       this->window_.draw(paddle.shape());
 
-      for (auto const &brick : bricks) {
+      for (auto &brick : bricks) {
         this->window_.draw(brick.shape());
       }
 
@@ -130,6 +145,55 @@ class Game {
       ? -Ball::kDefaultVelocity_
       : Ball::kDefaultVelocity_;
   }
+
+  void testCollision(Brick &brick, Ball &ball) const {
+    if (false == brick.insets().IntersectsWith(ball.insets())) {
+      return;
+    }
+
+    brick.Destroy();
+    Dimension const kMinimumOverlap = this->CalculateMinimumOverlap(
+        ball.insets(),
+        brick.insets());
+
+    if (abs(kMinimumOverlap.width()) < abs(kMinimumOverlap.height())) {
+      ball.UpdateVelocity(
+        (this->CollidesBallWithLeft(ball.insets(), brick.insets()) ? -Ball::kDefaultVelocity_ : Ball::kDefaultVelocity_),
+        ball.velocity().y);
+    } else {
+      ball.UpdateVelocity(
+        ball.velocity().x,
+        (this->CollidesBallWithTop(ball.insets(), brick.insets()) ? -Ball::kDefaultVelocity_ : Ball::kDefaultVelocity_));
+    }
+  }
+
+  bool CollidesBallWithLeft(Insets const &mBall, Insets const &mBrick) const noexcept {
+    float const overlapLeft{mBall.right() - mBrick.left()};
+    float const overlapRight{mBrick.right() - mBall.left()};
+
+    return abs(overlapLeft) < abs(overlapRight);
+  }
+
+  bool CollidesBallWithTop(Insets const &mBall, Insets const &mBrick) const noexcept {
+    float const overlapTop{mBall.bottom() - mBrick.top()};
+    float const overlapBottom{mBrick.bottom() - mBall.top()};
+
+    return abs(overlapTop) < abs(overlapBottom);
+  }
+
+  Dimension CalculateMinimumOverlap(Insets const &mBall, Insets const &mBrick) const noexcept {
+    float overlapLeft{mBall.right() - mBrick.left()};
+    float overlapRight{mBrick.right() - mBall.left()};
+    float overlapTop{mBall.bottom() - mBrick.top()};
+    float overlapBottom{mBrick.bottom() - mBall.top()};
+    bool ballFromLeft(abs(overlapLeft) < abs(overlapRight));
+    bool ballFromTop(abs(overlapTop) < abs(overlapBottom));
+    float minOverlapX{ballFromLeft ? overlapLeft : overlapRight};
+    float minOverlapY{ballFromTop ? overlapTop : overlapBottom};
+
+    return {minOverlapX, minOverlapY};
+  }
+
 
  private:
   /** The width of the window of this Game in pixels. */

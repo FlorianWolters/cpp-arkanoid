@@ -8,55 +8,33 @@
 #ifndef FW_ARKANOID_BRICK_H_
 #define FW_ARKANOID_BRICK_H_
 
-#include <SFML/Graphics.hpp>
-
 #include "fw/arkanoid/dimension.h"
-#include "fw/arkanoid/insets.h"
-#include "fw/arkanoid/point.h"
+#include "fw/arkanoid/rectangle_base.h"
 
 namespace fw {
 namespace arkanoid {
 
-class Brick {
+class Brick : public RectangleBase {
  public:
   static float constexpr kDefaultWidth{60.f};
   static float constexpr kDefaultHeight{20.f};
 
-  explicit Brick(Point const &kPoint) : shape_{sf::RectangleShape()} {
-    this->shape_.setPosition(kPoint.x(), kPoint.y());
-    this->shape_.setSize({kDefaultWidth, kDefaultHeight});
-    this->shape_.setFillColor(sf::Color::Yellow);
-    this->shape_.setOrigin(kDefaultWidth / 2.f, kDefaultHeight / 2.f);
+  explicit Brick(Point const kPosition) {
+    this->shape().setPosition(kPosition.x(), kPosition.y());
+    this->shape().setSize({kDefaultWidth, kDefaultHeight});
+    this->shape().setFillColor(sf::Color::Yellow);
+    this->shape().setOrigin(kDefaultWidth / 2.f, kDefaultHeight / 2.f);
   }
 
-  sf::RectangleShape shape() const noexcept {
-    return this->shape_;
+  bool IsDestroyed() const noexcept {
+    return this->is_destroyed_;
   }
 
-  /**
-   * Returns the Point of this Brick.
-   *
-   * @return The Point.
-   */
-  Point point() const noexcept {
-    return {this->shape_.getPosition().x, this->shape_.getPosition().y};
-  }
-  /**
-   * Returns the Insets of this Brick.
-   *
-   * @return The Insets.
-   */
-  Insets insets() const noexcept {
-    float const kTop = this->point().y() - this->shape_.getSize().y / 2.f;
-    float const kLeft = this->point().x() - this->shape_.getSize().x / 2.f;
-    float const kBottom = this->point().y() + this->shape_.getSize().y / 2.f;
-    float const kRight = this->point().x() + this->shape_.getSize().x / 2.f;
-
-    return {kTop, kLeft, kBottom, kRight};
+  void Destroy() noexcept {
+    this->is_destroyed_ = true;
   }
 
  private:
-  sf::RectangleShape shape_;
   bool is_destroyed_{false};
 };
 

@@ -9,14 +9,14 @@
 #define FW_ARKANOID_PADDLE_H_
 
 #include "SFML/Graphics.hpp"
+
 #include "fw/arkanoid/dimension.h"
-#include "fw/arkanoid/insets.h"
-#include "fw/arkanoid/point.h"
+#include "fw/arkanoid/rectangle_base.h"
 
 namespace fw {
 namespace arkanoid {
 
-class Paddle {
+class Paddle : public RectangleBase {
  public:
   Paddle(Dimension const kBorders, Point const kPosition)
       : Paddle{kBorders, kPosition, Dimension{kDefaultWidth, kDefaultHeight}} {
@@ -24,45 +24,17 @@ class Paddle {
 
   Paddle(Dimension const kBorders, Point const kPosition, Dimension const kSize)
     : kBorders_(kBorders),
-      shape_(sf::RectangleShape()),
       velocity_(sf::Vector2f()) {
-    this->shape_.setPosition(kPosition.x(), kPosition.y());
-    this->shape_.setSize({kSize.width(), kSize.height()});
-    this->shape_.setFillColor(sf::Color::Red);
-    this->shape_.setOrigin(
+    this->shape().setPosition(kPosition.x(), kPosition.y());
+    this->shape().setSize({kSize.width(), kSize.height()});
+    this->shape().setFillColor(sf::Color::Red);
+    this->shape().setOrigin(
         kSize.width() / 2.f,
         kSize.height() / 2.f);
   }
 
-  sf::RectangleShape shape() const noexcept {
-    return this->shape_;
-  }
-
-  /**
-   * Returns the Point of this Paddle.
-   *
-   * @return The Point.
-   */
-  Point point() const noexcept {
-    return {this->shape_.getPosition().x, this->shape_.getPosition().y};
-  }
-
-  /**
-   * Returns the Insets of this Paddle.
-   *
-   * @return The Insets.
-   */
-  Insets insets() const noexcept {
-    float const kTop = this->point().y() - this->shape_.getSize().y / 2.f;
-    float const kLeft = this->point().x() - this->shape_.getSize().x / 2.f;
-    float const kBottom = this->point().y() + this->shape_.getSize().y / 2.f;
-    float const kRight = this->point().x() + this->shape_.getSize().x / 2.f;
-
-    return {kTop, kLeft, kBottom, kRight};
-  }
-
   void update() {
-    this->shape_.move(this->velocity_);
+    this->shape().move(this->velocity_);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && this->insets().left() > 0) {
       this->velocity_.x = -kDefaultVelocity;
@@ -74,12 +46,11 @@ class Paddle {
   }
 
  private:
-  static constexpr float kDefaultWidth{60.f};
-  static constexpr float kDefaultHeight{20.f};
-  static constexpr float kDefaultVelocity{6.f};
+  static float constexpr kDefaultWidth{60.f};
+  static float constexpr kDefaultHeight{20.f};
+  static float constexpr kDefaultVelocity{6.f};
 
   Dimension const kBorders_;
-  sf::RectangleShape shape_;
 
   /** The velocity of this Paddle. */
   sf::Vector2f velocity_;
