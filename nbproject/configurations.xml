@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="91">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <df root="include" name="0">
-      <df name="fw">
-        <df name="arkanoid">
-          <in>ball.h</in>
-          <in>brick.h</in>
-          <in>dimension.h</in>
-          <in>insets.h</in>
-          <in>paddle.h</in>
-          <in>point.h</in>
-        </df>
-      </df>
+    <df root="include" name="1">
     </df>
-    <df root="src" name="1">
-      <in>main.cc</in>
+    <df root="src" name="2">
     </df>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
-      <itemPath>Makefile</itemPath>
+      <itemPath>CMakeLists.txt</itemPath>
+      <itemPath>build/Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
@@ -28,7 +18,7 @@
     <Elem>include</Elem>
     <Elem>src</Elem>
   </sourceRootList>
-  <projectmakefile>Makefile</projectmakefile>
+  <projectmakefile>build/Makefile</projectmakefile>
   <confs>
     <conf name="Default" type="0">
       <toolsSet>
@@ -40,39 +30,27 @@
       </codeAssistance>
       <makefileType>
         <makeTool>
-          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommandWorkingDir>build</buildCommandWorkingDir>
           <buildCommand>${MAKE}</buildCommand>
           <cleanCommand>${MAKE} clean</cleanCommand>
-          <executablePath>build/arkanoid.exe</executablePath>
+          <executablePath>build\arkanoid.exe</executablePath>
+          <cTool>
+            <standard>10</standard>
+          </cTool>
           <ccTool>
             <standard>8</standard>
             <incDir>
-              <pElem>../SFML-2.1/include</pElem>
               <pElem>include</pElem>
-              <pElem></pElem>
+              <pElem>../sfml-2.1/include</pElem>
+              <pElem>../gtest-1.7.0/include</pElem>
+              <pElem>../gmock-1.7.0/include</pElem>
             </incDir>
+            <preprocessorList>
+              <Elem>SFML_STATIC</Elem>
+            </preprocessorList>
           </ccTool>
         </makeTool>
       </makefileType>
-      <item path="include/fw/arkanoid/ball.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/fw/arkanoid/brick.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/fw/arkanoid/dimension.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/fw/arkanoid/insets.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/fw/arkanoid/paddle.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/fw/arkanoid/point.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/main.cc" ex="false" tool="1" flavor2="8">
-        <ccTool>
-          <preprocessorList>
-            <Elem>SFML_STATIC</Elem>
-          </preprocessorList>
-        </ccTool>
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>
